@@ -1,5 +1,6 @@
+import React, { useState } from 'react';
+import { Platform, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -7,6 +8,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
+  const [contador, setContador] = useState(0);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -16,41 +19,48 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
+
+      {/* Título */}
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText type="title">CONTADOR INTELIGENTE</ThemedText>
       </ThemedView>
+
+      {/* Contador */}
+      <View style={styles.contadorContainer}>
+        <Text style={styles.contadorTitulo}>Contador:</Text>
+        <Text style={styles.contadorNumero}>{contador}</Text>
+
+        {/* Mensagem de paz e harmonia */}
+        {contador !== 0 && contador % 10 === 0 && (
+          <Text style={styles.mensagem}>
+            🌿 Que a paz e a harmonia estejam com você a cada 10 passos! 🌿
+          </Text>
+        )}
+
+        {/* Botões com cores personalizadas */}
+        <View style={styles.botoesContainer}>
+          <TouchableOpacity style={[styles.botao, styles.botaoVerde]} onPress={() => setContador(contador + 1)}>
+            <Text style={styles.textoBotao}>Incrementar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.botao, styles.botaoVermelho]} onPress={() => setContador(contador - 1)}>
+            <Text style={styles.textoBotao}>Decrementar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.botao, styles.botaoAzul]} onPress={() => setContador(0)}>
+            <Text style={styles.textoBotao}>Resetar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Conteúdo existente */}
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">ola meu nome é gabriel</ThemedText>
         <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
           <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
+            Aqui cada número tem significado! Use o contador para marcar seus avanços, registrar seus cliques ou simplesmente se divertir vendo os números subirem (ou descerem). Cada toque é um passo — então continue contando, porque cada passo importa!
+          </ThemedText>
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+
     </ParallaxScrollView>
   );
 }
@@ -72,4 +82,53 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  contadorContainer: {
+    margin: 20,
+    alignItems: 'center',
+  },
+  contadorTitulo: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  contadorNumero: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#006400',
+  },
+  mensagem: {
+    marginTop: 10,
+    fontSize: 16,
+    fontStyle: 'italic',
+    color: '#2E8B57',
+    textAlign: 'center',
+  },
+  botoesContainer: {
+    flexDirection: 'row',
+    gap: 10,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  botao: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginHorizontal: 5,
+  },
+  textoBotao: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  botaoVerde: {
+    backgroundColor: 'green',
+  },
+  botaoVermelho: {
+    backgroundColor: 'red',
+  },
+  botaoAzul: {
+    backgroundColor: 'blue',
+  },
 });
+ 
